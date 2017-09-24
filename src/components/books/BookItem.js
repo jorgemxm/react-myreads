@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 
 function BookItem(props) {
   const authors = props.authors.map(author => (
-    <span
-      key={ author.replace(/\s/g, '')}
-      className="book-author">
-      - { author }
-      <br />
+    <span key={ author.replace(/\s/g, '')} className="book-author">
+      - { author }<br />
     </span>
   ));
 
