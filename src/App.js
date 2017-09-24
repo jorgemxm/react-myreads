@@ -8,7 +8,7 @@ import {
 
 import { Header } from './components/common';
 
-import './App.css';
+import './assets/css/App.css';
 
 class BooksApp extends Component {
   state = {
