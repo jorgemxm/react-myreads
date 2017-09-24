@@ -1,7 +1,8 @@
 import React from 'react';
 import BookItem from './BookItem';
+import PropTypes from 'prop-types';
 
-export default function BookGrid(props) {
+function BookGrid(props) {
   const { books } = props;
 
   return (
@@ -12,3 +13,9 @@ export default function BookGrid(props) {
     </ol>
   )
 }
+
+BookGrid.propTypes = {
+  books: PropTypes.array.isRequired
+}
+
+export default BookGrid;

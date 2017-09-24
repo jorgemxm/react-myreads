@@ -3,8 +3,9 @@
 */
 import React from 'react';
 import BookLayoutGrid from './BookLayoutGrid';
+import PropTypes from 'prop-types';
 
-export default function BookShelf(props) {
+function BookShelf(props) {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{ props.shelfTitle }</h2>
@@ -14,3 +15,10 @@ export default function BookShelf(props) {
     </div>
   )
 }
+
+BookShelf.propTypes = {
+  shelfTitle: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
+};
+
+export default BookShelf;

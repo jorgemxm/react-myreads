@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function BookItem(props) {
+function BookItem(props) {
   const authors = props.authors.map(author => (
     <span
       key={ author.replace(/\s/g, '')}
@@ -31,3 +32,11 @@ export default function BookItem(props) {
     </li>
   )
 }
+
+BookItem.propTypes = {
+  imageLinks: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.array.isRequired
+}
+
+export default BookItem;
