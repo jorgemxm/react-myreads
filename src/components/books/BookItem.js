@@ -14,7 +14,9 @@ function BookItem(props) {
         <div className="book-top">
           <div className="book-cover" style={{ backgroundImage: `url("${ props.imageLinks.smallThumbnail }")` }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select
+              defaultValue={ props.hasOwnProperty('shelf') ? props.shelf : false }
+            >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
