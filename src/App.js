@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './utils/BooksAPI';
+import './assets/css/App.css';
 
+// Import Custom Components
+import { Header } from './components/common';
 import {
   BookShelf,
   Search
 } from './components/books';
 
-import { Header } from './components/common';
-
-import './assets/css/App.css';
-
+// Main Container Component
 class BooksApp extends Component {
   state = {
     /**
@@ -31,9 +31,9 @@ class BooksApp extends Component {
             <Header title="MyReads" />
 
             <div className="list-books-content">
-              <BookShelf />
-              <BookShelf />
-              <BookShelf />
+              <BookShelf shelfTitle="Currently Reading" />
+              <BookShelf shelfTitle="Want to Read"/>
+              <BookShelf shelfTitle="Read"/>
             </div>
 
             <div className="open-search btn-action">
