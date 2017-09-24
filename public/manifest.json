@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "r-MyReads",
+  "name": "MyReads - Books Shelfs",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#e8e8e8"
+  "theme_color": "#9DA5B4",
+  "background_color": "#3E4451"
 }
