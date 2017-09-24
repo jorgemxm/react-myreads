@@ -35,7 +35,8 @@ class BooksApp extends Component {
               <BookShelf />
               <BookShelf />
             </div>
-            <div className="open-search">
+
+            <div className="open-search btn-action">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
 

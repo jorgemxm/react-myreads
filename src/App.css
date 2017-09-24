@@ -6,16 +6,27 @@ body,
 
 body,
 .app {
-  background: #e8e8e8;
+  background: #3E4451;
+  color: #9DA5B4;
 }
-
 
 /*------------------------------------*
 * Main page
 *-------------------------------------*/
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  /*background: #2e7c31;*/
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1377dc+0,459BF2+99 */
+  background: #1377dc; /* Old browsers */
+  /* IE6-9 fallback on horizontal gradient */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1377dc', endColorstr='#459BF2', GradientType=1);
+  /* FF3.6-15 */
+  background: -moz-linear-gradient(-10deg, #1377dc 0%, #459BF2 99%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-linear-gradient(-10deg, #1377dc 0%, #459BF2 99%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(170deg, #1377dc 0%, #459BF2 99%);
+  border-bottom: 4px solid #363C46;
   text-align: center;
 }
 
@@ -30,6 +41,24 @@ body,
   flex: 1;
 }
 
+.btn-action a {
+  background-color: #1478DC;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  display: block;
+  font-size: 0;
+  height: 50px;
+  width: 50px;
+}
+
+.btn-action:hover a {
+  background-color: #9465D8;
+}
+
 .bookshelf {
   padding: 0 10px 20px;
 }
@@ -41,7 +70,24 @@ body,
 }
 
 .bookshelf-title {
-  border-bottom: 1px solid #dedede;
+  text-align: left;
+  font-weight: 100;
+  font-size: 3rem;
+  position: relative;
+  width: 100%;
+  text-indent: -4px;
+}
+
+.bookshelf-title::after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  height: 12px;
+  background-color: #3E4451;
+  border-top: 1px solid #21252B;
+  box-shadow: 0px 1px 0px #606773 inset;
 }
 
 .bookshelf-books {
@@ -55,18 +101,8 @@ body,
 }
 
 .open-search a {
-  display: block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #2e7d32;
   background-image: url('./icons/add.svg');
-  background-repeat: no-repeat;
-  background-position: center;
   background-size: 28px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  font-size: 0;
 }
 
 
@@ -144,11 +180,12 @@ body,
 }
 
 .book-title {
+  color: #f2f2f2;
   margin-top: 10px;
 }
 
 .book-authors {
-  color: #999;
+  color: #969EAC;
 }
 
 .book-top {
@@ -165,19 +202,22 @@ body,
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
-  background-image: url('./icons/arrow-drop-down.svg');
+  background-color: #1478DC; /* #62B630;*/
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /*background-image: url('./icons/arrow-drop-down.svg');*/
+  background-image: url('./icons/arrow-down-polyline.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 24px;
+  background-size: 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18), 0 3px 6px rgba(0, 0, 0, 0.22);
 }
 
+
 .book-shelf-changer select {
-  width: 100%;
+  cursor: pointer;
   height: 100%;
   opacity: 0;
-  cursor: pointer;
+  width: 100%;
 }
 
 
