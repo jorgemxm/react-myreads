@@ -13,9 +13,14 @@ class BooksApp extends Component {
   state = {
     shelfs: {}
   }
-  }
 
   componentDidMount() {
+    this.loadData();
+  }
+
+
+  loadData() {
+
     BooksAPI.getAll()
     .then(books => {
       this.setState({
@@ -23,6 +28,7 @@ class BooksApp extends Component {
       });
     })
   }
+
 
   render() {
 
