@@ -172,6 +172,11 @@ body,
   width: 140px;
 }
 
+.book-cover {
+  width: 128px;
+  height: 192px;
+}
+
 .book-title,
 .book-authors {
   font-size: 0.8em;
