@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 function BookItem(props) {
 
+  const noImageThumbnail = '//books.google.com/books/content?id=notfound&img=1&zoom=1&source=gbs_api';
+
   // Props Deconstruction
   const {
     book,
@@ -11,14 +13,24 @@ function BookItem(props) {
     onUpdateBookShelf
   } = props;
 
-  const currentShelf = book.hasOwnProperty('shelf') ? book.shelf : false;
+  const currentShelf = book.hasOwnProperty('shelf') ? book.shelf : 'none';
 
   // It creates a List of Authors for the current Book
-  const authorsList = book.authors.map(author => (
+  // NOTE: There are books without authors. eg: Search for "Painting" or "Baseball"
+  const authorsList = (book.authors) && book.authors.map(author => (
     <span key={ author.replace(/\s/g, '')} className="book-author">
       - { author }<br />
     </span>
   ));
+
+  // NOTE: Provide a Default image since There are books without Covers.
+  // eg: Search for "Design", "Virtual Reality" or "Time"
+  let thumbnail = (book.hasOwnProperty('imageLinks'))
+    ? book.imageLinks.smallThumbnail
+    : noImageThumbnail;
+
+  // Remove URL Protocol in order to avoid Cross-Domain issues
+  thumbnail = thumbnail.replace(/^https?:/, '');
 
   return (
     <li>
@@ -27,7 +39,7 @@ function BookItem(props) {
         <div className="book-top">
           <div
             className="book-cover"
-            style={{ backgroundImage: `url("${ book.imageLinks.smallThumbnail }")` }}
+            style={{ backgroundImage: `url("${ thumbnail }")` }}
           ></div>
 
           <div className="book-shelf-changer">
@@ -54,6 +66,6 @@ BookItem.propTypes = {
   book: PropTypes.object.isRequired,
   shelvesOptions: PropTypes.array.isRequired,
   onUpdateBookShelf: PropTypes.func.isRequired
-}
+};
 
 export default BookItem;
