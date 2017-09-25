@@ -11,7 +11,8 @@ import { BookShelf, Search } from './components/books';
 // Main Container Component
 class BooksApp extends Component {
   state = {
-    shelves: {}
+    shelves: {},
+    shelvesAvailable: []
   }
 
   componentDidMount() {
@@ -24,7 +25,8 @@ class BooksApp extends Component {
     BooksAPI.getAll()
     .then(books => {
       this.setState({
-        shelves: booksUtils.mapBooksToShelves(books)
+        shelves: booksUtils.mapBooksToShelves(books),
+        shelvesAvailable: booksUtils.getListOfShelves(books)
       });
     })
   }
@@ -32,9 +34,9 @@ class BooksApp extends Component {
 
   render() {
 
-    const { shelves } = this.state;
+    const { shelves, shelvesAvailable } = this.state;
     const bookShelves = Object.keys(shelves).map((shelf, index) => (
-      <BookShelf key={ shelf } {...shelves[shelf] } />
+      <BookShelf key={ shelf } shelvesAvailable={ shelvesAvailable } {...shelves[shelf] } />
     ));
 
     return (

@@ -1,14 +1,24 @@
 import React from 'react';
 import BookItem from './BookItem';
 import PropTypes from 'prop-types';
+import { camelCaseToTitleCase } from '../../utils/utils';
 
 function BookGrid(props) {
-  const { books } = props;
+
+  const { books, shelvesAvailable } = props;
+
+  const shelvesOptions = shelvesAvailable.map(shelf => (
+    <option key={ shelf } value={ shelf }>{ camelCaseToTitleCase(shelf) }</option>
+  ));
 
   return (
     <ol className="books-grid">
       { books && books.map(book => (
-        <BookItem key={ book.id } { ...book } />
+        <BookItem
+          key={ book.id }
+          shelvesOptions={ shelvesOptions }
+          { ...book }
+        />
       ))}
     </ol>
   )

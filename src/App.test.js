@@ -65,4 +65,11 @@ it('maps the API response to a custom data structure', () => {
   const result = booksUtils.mapBooksToShelves(initialResponse.books);
   expect(result).toEqual(expected)
 
-})
+});
+
+
+it('creates a list of book shelves', () => {
+  const expected = [ 'currentlyReading', 'read', 'wantToRead' ];
+  const result = booksUtils.getListOfShelves(initialResponse.books);
+  expect(result).toEqual(expected);
+});
