@@ -27,6 +27,7 @@ export function mapBooksToShelves(apiBooksResponse) {
 * ---
 * @return {Array}
 */
+/*
 export function getListOfShelves(apiBooksResponse) {
   const shelves = apiBooksResponse.reduce((last, book, currentIndex, collection) => {
 
@@ -46,3 +47,4 @@ export function getListOfShelves(apiBooksResponse) {
 
   return shelves;
 }
+*/

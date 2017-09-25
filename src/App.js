@@ -11,8 +11,12 @@ import { BookShelf, Search } from './components/books';
 // Main Container Component
 class BooksApp extends Component {
   state = {
-    shelves: {},
-    shelvesAvailable: []
+    shelves: { },
+    shelvesAvailable: [
+      'currentlyReading',
+      'wantToRead',
+      'read'
+    ]
   }
 
   componentDidMount() {
@@ -25,8 +29,7 @@ class BooksApp extends Component {
     BooksAPI.getAll()
     .then(books => {
       this.setState({
-        shelves: booksUtils.mapBooksToShelves(books),
-        shelvesAvailable: booksUtils.getListOfShelves(books)
+        shelves: booksUtils.mapBooksToShelves(books)
       });
     })
   }
