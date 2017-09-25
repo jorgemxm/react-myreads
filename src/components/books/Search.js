@@ -55,13 +55,20 @@ export default class Search extends Component {
   */
   handleAutocomplete = (query, searchTerms) => {
 
-    // Filter Autocomplete Suggestions
-    const autocompleteSuggestions = searchTerms.filter(term => (
-      (term.toLowerCase().indexOf(query.toLowerCase()) >= 0)
-    ));
+    let autocompleteSuggestions = [];
+
+    // Show Autocomplete only if the current searchTerm has more than 2 Chars
+    if (query.length >= 2) {
+
+      // Filter Autocomplete Suggestions
+      autocompleteSuggestions = searchTerms.filter(term => (
+        (term.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+      ));
+    }
 
     // Update Autocomplete
     this.setState({ autocompleteSuggestions });
+
   }
 
 
