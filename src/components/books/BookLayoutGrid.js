@@ -22,7 +22,7 @@ function BookGrid(props) {
           key={ book.id }
           shelvesOptions={ shelvesOptions }
           onUpdateBookShelf={ onUpdateBookShelf }
-          { ...book }
+          book={{...book }}
         />
       ))}
     </ol>

@@ -29,10 +29,10 @@ export function mapBooksToShelves(apiBooksResponse) {
 * ---
 * @return {Object}
 */
-export function moveToShelf(bookID, currentShelf, newShelf, allBooks) {
+export function moveToShelf(book, newShelf, allBooks) {
 
   const newBooks = { ...allBooks };
-  const bookIndex = newBooks[currentShelf].books.findIndex(_book => _book.id === bookID);
+  const bookIndex = newBooks[book.shelf].books.findIndex(_book => _book.id === book.id);
 
   // If the new shelf didn't have any books (It was empty) on page load
   newBooks[newShelf] = newBooks[newShelf] || { shelfTitle: camelCaseToTitleCase(newShelf) };
@@ -40,14 +40,14 @@ export function moveToShelf(bookID, currentShelf, newShelf, allBooks) {
 
   // Add the book to the new shelf
   newBooks[newShelf].books = newBooks[newShelf].books.concat({
-    ...allBooks[currentShelf].books[bookIndex],
+    ...allBooks[book.shelf].books[bookIndex],
     shelf: newShelf
   });
 
   // Remove the book from the previous shelf
-  newBooks[currentShelf].books = [
-    ...newBooks[currentShelf].books.slice(0, bookIndex),
-    ...newBooks[currentShelf].books.slice(bookIndex + 1)
+  newBooks[book.shelf].books = [
+    ...newBooks[book.shelf].books.slice(0, bookIndex),
+    ...newBooks[book.shelf].books.slice(bookIndex + 1)
   ]
 
   return newBooks;
@@ -61,13 +61,13 @@ export function moveToShelf(bookID, currentShelf, newShelf, allBooks) {
 * ---
 * @return {Object}
 */
-export function removeFromShelf(bookID, currentShelf, allBooks) {
+export function removeFromShelf(book, allBooks) {
   const newBooks = { ...allBooks };
-  const bookIndex = newBooks[currentShelf].books.findIndex(_book => _book.id === bookID);
+  const bookIndex = newBooks[book.shelf].books.findIndex(_book => _book.id === book.id);
 
-  newBooks[currentShelf].books = [
-    ...newBooks[currentShelf].books.slice(0, bookIndex),
-    ...newBooks[currentShelf].books.slice(bookIndex + 1)
+  newBooks[book.shelf].books = [
+    ...newBooks[book.shelf].books.slice(0, bookIndex),
+    ...newBooks[book.shelf].books.slice(bookIndex + 1)
   ]
 
   return newBooks;

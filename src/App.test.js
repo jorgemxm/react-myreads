@@ -91,7 +91,7 @@ it('moves a book to another shelf', () => {
     wantToRead: { books: [] }
   };
 
-  const result = booksUtils.moveToShelf(currentBook.id, currentBook.shelf, 'currentlyReading', allBooks);
+  const result = booksUtils.moveToShelf(currentBook, 'currentlyReading', allBooks);
   expect(result).toEqual(expected);
 
 });
@@ -99,7 +99,7 @@ it('moves a book to another shelf', () => {
 
 
 test('moveToShelf should not mutate the existing books array', () => {
-  const result = booksUtils.moveToShelf(currentBook.id, currentBook.shelf, 'read', allBooks);
+  const result = booksUtils.moveToShelf(currentBook, 'read', allBooks);
   expect(result).not.toBe(allBooks);
 })
 
@@ -116,7 +116,7 @@ it('removes a book from all the shelves', () => {
     wantToRead: { books: [] }
   };
 
-  const result = booksUtils.removeFromShelf(currentBook.id, currentBook.shelf, allBooks);
+  const result = booksUtils.removeFromShelf(currentBook, allBooks);
   expect(expected).toEqual(expected);
 
 });

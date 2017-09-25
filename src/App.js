@@ -36,17 +36,13 @@ class BooksApp extends Component {
   }
 
 
-  onUpdateBookShelf = (bookID, currentShelf, newShelf) => {
-
-    // Temp Object since BooksApi.JS expects an Object with key = 'id'
-    const book = { id: bookID };
-
+  onUpdateBookShelf = (book, newShelf) => {
     BooksAPI.update(book, newShelf)
     .then(response => {
       this.setState((state) => {
         return (newShelf === 'none')
-          ? { shelves: booksUtils.removeFromShelf(bookID, currentShelf, this.state.shelves) }
-          : { shelves: booksUtils.moveToShelf(bookID, currentShelf, newShelf, this.state.shelves) }
+          ? { shelves: booksUtils.removeFromShelf(book, this.state.shelves) }
+          : { shelves: booksUtils.moveToShelf(book, newShelf, this.state.shelves) }
       });
     });
   }
