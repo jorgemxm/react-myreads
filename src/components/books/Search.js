@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+
+//-----------------------------------
+// NOTE: Controlled Components - Udacity:React-NanoDegree - Lesson 03, Chapter 07
+// - https://facebook.github.io/react/docs/forms.html#controlled-components
+//-----------------------------------
 export default class Search extends Component {
+
+  static propTypes = {}
+
+  state = {
+    query: ''
+  }
 
   render() {
     return (
