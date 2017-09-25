@@ -38,6 +38,11 @@ class BooksApp extends Component {
   }
 
 
+  /**
+  * It Moves the given book from one shelf to another / remove it from the shelves
+  * @param {Object} book
+  * @param {String} newShelf
+  */
   onUpdateBookShelf = (book, newShelf) => {
     BooksAPI.update(book, newShelf)
     .then(response => {
@@ -51,6 +56,7 @@ class BooksApp extends Component {
 
 
   render() {
+
     const { shelves, shelvesAvailable } = this.state;
     const bookShelves = shelvesAvailable.map((shelf, index) => (
         <BookShelf
@@ -83,7 +89,13 @@ class BooksApp extends Component {
         )} />
 
         {/* ROUTE: Search Page */}
-        <Route path="/search" component={ Search } />
+        {/* <Route path="/search" component={ Search } /> */}
+        <Route path="/search" render={ () => (
+          <Search
+            shelvesAvailable={ shelvesAvailable }
+            onUpdateBookShelf={ this.onUpdateBookShelf }
+          />
+        ) } />
 
       </div>
     )

@@ -118,7 +118,7 @@ body,
 
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  /*background: #e9e;*/
 }
 
 .search-books-bar input {
@@ -127,6 +127,58 @@ body,
   font-size: 1.25em;
   border: none;
   outline: none;
+}
+
+.search-books-autocomplete {
+  background: #f2f2f2;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  max-height: 50vh;
+  overflow-y: scroll;
+  padding: 20px 0;
+  position: absolute;
+  top: 53px;
+  width: 100%;
+}
+
+.search-books-autocomplete-link-item {
+  background: none;
+  border: 0;
+  color: #3E4451;
+  display: block;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  padding: 2px 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.search-books-autocomplete-link-item:hover {
+  background-color: #459BF2;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+}
+
+.search-results-clear {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.search-results-clear strong {
+  color: #e2e2e2;
+}
+
+.search-results-clear a {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 12px;
+  text-decoration: underline;
+}
+
+.search-results-clear a:hover {
+  color: #e2e2e2;
 }
 
 .close-search {

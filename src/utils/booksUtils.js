@@ -32,23 +32,29 @@ export function mapBooksToShelves(apiBooksResponse) {
 export function moveToShelf(book, newShelf, allBooks) {
 
   const newBooks = { ...allBooks };
-  const bookIndex = newBooks[book.shelf].books.findIndex(_book => _book.id === book.id);
 
-  // If the new shelf didn't have any books (It was empty) on page load
+  // Validate if the Current Book has a Shelf assigned or Not
+  const bookIndex = (book.hasOwnProperty('shelf'))
+    ? newBooks[book.shelf].books.findIndex(_book => _book.id === book.id)
+    : false;
+
+  // Validate If the name of the "newShelf" provided was empty (It didn't have any books) on page load
   newBooks[newShelf] = newBooks[newShelf] || { shelfTitle: camelCaseToTitleCase(newShelf) };
   newBooks[newShelf].books = newBooks[newShelf].books || [];
 
-  // Add the book to the new shelf
+  // Add the Current Book to the given shelf name
   newBooks[newShelf].books = newBooks[newShelf].books.concat({
-    ...allBooks[book.shelf].books[bookIndex],
+    ...book,
     shelf: newShelf
   });
 
-  // Remove the book from the previous shelf
-  newBooks[book.shelf].books = [
-    ...newBooks[book.shelf].books.slice(0, bookIndex),
-    ...newBooks[book.shelf].books.slice(bookIndex + 1)
-  ]
+  // If the book was found in the Active Shelves, Remove it from its previous shelf
+  if (bookIndex) {
+    newBooks[book.shelf].books = [
+      ...newBooks[book.shelf].books.slice(0, bookIndex),
+      ...newBooks[book.shelf].books.slice(bookIndex + 1)
+    ];
+  }
 
   return newBooks;
 }
