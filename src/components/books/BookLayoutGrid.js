@@ -5,7 +5,11 @@ import { camelCaseToTitleCase } from '../../utils/utils';
 
 function BookGrid(props) {
 
-  const { books, shelvesAvailable } = props;
+  const {
+    books,
+    shelvesAvailable,
+    onUpdateBookShelf
+  } = props;
 
   const shelvesOptions = shelvesAvailable.map(shelf => (
     <option key={ shelf } value={ shelf }>{ camelCaseToTitleCase(shelf) }</option>
@@ -17,6 +21,7 @@ function BookGrid(props) {
         <BookItem
           key={ book.id }
           shelvesOptions={ shelvesOptions }
+          onUpdateBookShelf={ onUpdateBookShelf }
           { ...book }
         />
       ))}

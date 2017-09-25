@@ -75,3 +75,48 @@ it('creates a list of book shelves', () => {
   expect(result).toEqual(expected);
 });
 */
+
+
+it('moves a book to another shelf', () => {
+  const expected = {
+    read: {
+      books: [
+        { id: 1, title: 'React' },
+        { id: 3, title: 'Design' }
+      ]
+    },
+    currentlyReading: {
+      books: [ { id: 2, title: 'Games', shelf: 'currentlyReading' } ]
+    },
+    wantToRead: { books: [] }
+  };
+
+  const result = booksUtils.moveToShelf(currentBook.id, currentBook.shelf, 'currentlyReading', allBooks);
+  expect(result).toEqual(expected);
+
+});
+
+
+
+test('moveToShelf should not mutate the existing books array', () => {
+  const result = booksUtils.moveToShelf(currentBook.id, currentBook.shelf, 'read', allBooks);
+  expect(result).not.toBe(allBooks);
+})
+
+
+it('removes a book from all the shelves', () => {
+  const expected = {
+    read: {
+      books: [
+        { id: 1, title: 'React' },
+        { id: 3, title: 'Design' }
+      ]
+    },
+    currentlyReading: { books: [] },
+    wantToRead: { books: [] }
+  };
+
+  const result = booksUtils.removeFromShelf(currentBook.id, currentBook.shelf, allBooks);
+  expect(expected).toEqual(expected);
+
+});

@@ -10,7 +10,9 @@ function BookShelf(props) {
     <div className="bookshelf">
       <h2 className="bookshelf-title">{ props.shelfTitle }</h2>
       <div className="bookshelf-books">
-        <BookLayoutGrid { ...props } />
+        { props.books && (
+          <BookLayoutGrid { ...props } />
+        )}
       </div>
     </div>
   )
@@ -18,7 +20,7 @@ function BookShelf(props) {
 
 BookShelf.propTypes = {
   shelfTitle: PropTypes.string.isRequired,
-  books: PropTypes.array.isRequired,
+  books: PropTypes.array
 };
 
 export default BookShelf;

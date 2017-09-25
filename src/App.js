@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import * as booksUtils from './utils/booksUtils';
+import * as utils from './utils/utils';
 import './assets/css/App.css';
 
 // Import Custom Components
@@ -35,12 +36,34 @@ class BooksApp extends Component {
   }
 
 
-  render() {
+  onUpdateBookShelf = (bookID, currentShelf, newShelf) => {
 
+    // Temp Object since BooksApi.JS expects an Object with key = 'id'
+    const book = { id: bookID };
+
+    BooksAPI.update(book, newShelf)
+    .then(response => {
+      this.setState((state) => {
+        return (newShelf === 'none')
+          ? { shelves: booksUtils.removeFromShelf(bookID, currentShelf, this.state.shelves) }
+          : { shelves: booksUtils.moveToShelf(bookID, currentShelf, newShelf, this.state.shelves) }
+      });
+    });
+  }
+
+
+  render() {
     const { shelves, shelvesAvailable } = this.state;
-    const bookShelves = Object.keys(shelves).map((shelf, index) => (
-      <BookShelf key={ shelf } shelvesAvailable={ shelvesAvailable } {...shelves[shelf] } />
-    ));
+    const bookShelves = shelvesAvailable.map((shelf, index) => (
+        <BookShelf
+          key={ shelf }
+          shelvesAvailable={ shelvesAvailable }
+          shelfTitle={ utils.camelCaseToTitleCase(shelf) }
+          onUpdateBookShelf={ this.onUpdateBookShelf }
+          { ...shelves[shelf] }
+        />
+      )
+    );
 
     return (
       <div className="app">

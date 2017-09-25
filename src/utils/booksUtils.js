@@ -22,6 +22,59 @@ export function mapBooksToShelves(apiBooksResponse) {
 
 
 /**
+* Move the given book to the given shelf name
+* @param {Object} book
+* @param {String} newShelf
+* @param {Array} allBooks
+* ---
+* @return {Object}
+*/
+export function moveToShelf(bookID, currentShelf, newShelf, allBooks) {
+
+  const newBooks = { ...allBooks };
+  const bookIndex = newBooks[currentShelf].books.findIndex(_book => _book.id === bookID);
+
+  // If the new shelf didn't have any books (It was empty) on page load
+  newBooks[newShelf] = newBooks[newShelf] || { shelfTitle: camelCaseToTitleCase(newShelf) };
+  newBooks[newShelf].books = newBooks[newShelf].books || [];
+
+  // Add the book to the new shelf
+  newBooks[newShelf].books = newBooks[newShelf].books.concat({
+    ...allBooks[currentShelf].books[bookIndex],
+    shelf: newShelf
+  });
+
+  // Remove the book from the previous shelf
+  newBooks[currentShelf].books = [
+    ...newBooks[currentShelf].books.slice(0, bookIndex),
+    ...newBooks[currentShelf].books.slice(bookIndex + 1)
+  ]
+
+  return newBooks;
+}
+
+
+/**
+* Remove the given book from the active Shelves
+* @param {Object} book
+* @param {Array} allBooks
+* ---
+* @return {Object}
+*/
+export function removeFromShelf(bookID, currentShelf, allBooks) {
+  const newBooks = { ...allBooks };
+  const bookIndex = newBooks[currentShelf].books.findIndex(_book => _book.id === bookID);
+
+  newBooks[currentShelf].books = [
+    ...newBooks[currentShelf].books.slice(0, bookIndex),
+    ...newBooks[currentShelf].books.slice(bookIndex + 1)
+  ]
+
+  return newBooks;
+}
+
+
+/**
 * It Creates a List with all the Book-Shelves available
 * @param {Array} apiBooksResponse
 * ---
