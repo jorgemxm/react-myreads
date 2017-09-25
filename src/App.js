@@ -20,6 +20,7 @@ class BooksApp extends Component {
     ]
   }
 
+
   componentDidMount() {
     this.loadData();
   }
@@ -32,7 +33,8 @@ class BooksApp extends Component {
       this.setState({
         shelves: booksUtils.mapBooksToShelves(books)
       });
-    })
+    });
+
   }
 
 

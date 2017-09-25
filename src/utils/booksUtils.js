@@ -81,7 +81,7 @@ export function removeFromShelf(book, allBooks) {
 * @return {Array}
 */
 /*
-export function getListOfShelves(apiBooksResponse) {
+export function getListOfActiveShelves(apiBooksResponse) {
   const shelves = apiBooksResponse.reduce((last, book, currentIndex, collection) => {
 
     // Avoid duplicated items in the List

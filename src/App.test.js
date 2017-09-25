@@ -68,14 +68,6 @@ it('maps the API response to a custom data structure', () => {
 });
 
 
-/*
-it('creates a list of book shelves', () => {
-  const expected = [ 'currentlyReading', 'read', 'wantToRead' ];
-  const result = booksUtils.getListOfShelves(initialResponse.books);
-  expect(result).toEqual(expected);
-});
-*/
-
 
 it('moves a book to another shelf', () => {
   const expected = {
@@ -120,3 +112,12 @@ it('removes a book from all the shelves', () => {
   expect(expected).toEqual(expected);
 
 });
+
+
+/*
+it('creates a list of the active book shelves', () => {
+  const expected = [ 'currentlyReading', 'read', 'wantToRead' ];
+  const result = booksUtils.getListOfActiveShelves(initialResponse.books);
+  expect(result).toEqual(expected);
+});
+*/

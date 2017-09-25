@@ -19,8 +19,10 @@ function BookShelf(props) {
 }
 
 BookShelf.propTypes = {
+  books: PropTypes.array,
+  onUpdateBookShelf: PropTypes.func.isRequired,
   shelfTitle: PropTypes.string.isRequired,
-  books: PropTypes.array
+  shelvesAvailable: PropTypes.array.isRequired
 };
 
 export default BookShelf;

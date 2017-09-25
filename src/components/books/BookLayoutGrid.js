@@ -31,8 +31,8 @@ function BookGrid(props) {
 
 BookGrid.propTypes = {
   books: PropTypes.array.isRequired,
-  shelvesAvailable: PropTypes.array.isRequired,
-  onUpdateBookShelf: PropTypes.func.isRequired
+  onUpdateBookShelf: PropTypes.func.isRequired,
+  shelvesAvailable: PropTypes.array.isRequired
 }
 
 export default BookGrid;
