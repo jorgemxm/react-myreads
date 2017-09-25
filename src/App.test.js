@@ -62,7 +62,7 @@ it('maps the API response to a custom data structure', () => {
     }
   }
 
-  const result = booksUtils.mapBooksToShelfs(initialResponse.books);
+  const result = booksUtils.mapBooksToShelves(initialResponse.books);
   expect(result).toEqual(expected)
 
 })

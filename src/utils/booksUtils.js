@@ -6,8 +6,8 @@ import { camelCaseToTitleCase } from './utils';
 * ---
 * @return {Object}
 */
-export function mapBooksToShelfs(apiBooksResponse) {
-  const booksShelfs = apiBooksResponse.reduce((last, book) => {
+export function mapBooksToShelves(apiBooksResponse) {
+  const booksShelves = apiBooksResponse.reduce((last, book) => {
     last[book.shelf] = last[book.shelf] || {};
     last[book.shelf].shelfTitle = last[book.shelf].shelfTitle || camelCaseToTitleCase(book.shelf);
     last[book.shelf].books = last[book.shelf].books || [];
@@ -17,5 +17,5 @@ export function mapBooksToShelfs(apiBooksResponse) {
     return last;
   }, {});
 
-  return booksShelfs;
+  return booksShelves;
 }
