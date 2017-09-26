@@ -81,7 +81,7 @@ export function removeFromShelf(book, allBooks) {
 
 
 /**
-* It Creates a List with all the Book-Shelves available
+* It Creates a List with all the active Shelves that the current user has
 * @param {Array} apiBooksResponse
 * ---
 * @return {Array}

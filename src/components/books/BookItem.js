@@ -29,7 +29,8 @@ function BookItem(props) {
     ? book.imageLinks.smallThumbnail
     : noImageThumbnail;
 
-  // Remove URL Protocol in order to avoid Cross-Domain issues
+  // Remove URL Protocol in order to avoid Mixed Content issues
+  // (Loading content over HTTP & HTTPS at the same time)
   thumbnail = thumbnail.replace(/^https?:/, '');
 
   return (
