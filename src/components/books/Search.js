@@ -27,6 +27,7 @@ export default class Search extends Component {
   state = {
     query: '',
     currentSearchTerm: '',
+    minCharsShowAutocomplete: 2,
     maxResults: 20,
     autocompleteSuggestions: [],
     statusNoResults: false,
@@ -63,9 +64,10 @@ export default class Search extends Component {
   handleAutocomplete = (query, searchTerms) => {
 
     let autocompleteSuggestions = [];
+    let { minCharsShowAutocomplete } = this.state;
 
-    // Show Autocomplete only if the current searchTerm has more than 2 Chars
-    if (query.length >= 2) {
+    // Show Autocomplete only if the current searchTerm has more than x amount of Characters
+    if (query.length >= minCharsShowAutocomplete) {
 
       // Filter Autocomplete Suggestions
       autocompleteSuggestions = searchTerms.filter(term => (
