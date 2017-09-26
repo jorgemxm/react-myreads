@@ -161,6 +161,10 @@ body,
   cursor: pointer;
 }
 
+.search-books-autocomplete-link-item strong {
+  font-weight: 900;
+}
+
 .search-results-clear {
   padding-bottom: 20px;
   text-align: center;

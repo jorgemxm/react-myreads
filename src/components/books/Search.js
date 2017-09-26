@@ -40,11 +40,11 @@ export default class Search extends Component {
   /**
   *
   */
-  selectAutocompleteSuggestion = (evt, query) => {
+  selectSuggestion = (evt, query) => {
     const keyCode = evt.keyCode || evt.which;
 
-    // If the pressed key is the 'Enter' Key, Update the 'query' term
-    if (keyCode === '13') {
+    // If Key-Pressed is 'Enter' Key
+    if (keyCode === 13) {
       this.updateQuery(query);
     }
   }
@@ -94,14 +94,16 @@ export default class Search extends Component {
   /**
   * Clear Current Search
   */
-  handleResetSearch = (evt) => {
+  resetSearch = (evt) => {
     this.setState({
       query: '',
       currentSearchTerm: '',
+      autocompleteSuggestions: [],
       searchResults: []
     });
 
-    // TODO: Move the Focus to the InputField after reseting the Form
+    // Moves the Focus to the InputField after reseting the Form
+    this.inputSearch.focus();
   }
 
 
@@ -118,7 +120,7 @@ export default class Search extends Component {
       ? (
         <div className="search-results-clear">
           Showing results for <strong>{ currentSearchTerm }.</strong>
-          <a onClick={ this.handleResetSearch }>Clear Search</a>
+          <a onClick={ this.resetSearch }>Clear Search</a>
         </div>
       )
       : false;
@@ -143,7 +145,12 @@ export default class Search extends Component {
                 placeholder="Search by title or author"
                 value={ query }
                 onChange={ (evt) => this.updateQuery(evt.target.value) }
+                autoFocus // Focus this field once the component is mounted
+
+                // NOTE: Refs - https://facebook.github.io/react/docs/refs-and-the-dom.html#adding-a-ref-to-a-dom-element
+                ref={ (input) => { this.inputSearch = input } }
               />
+
 
               {/* Render Autocomplete Suggestions */}
               { (autocompleteSuggestions.length > 0) && (
@@ -157,7 +164,7 @@ export default class Search extends Component {
                         className="search-books-autocomplete-link-item"
                         type="submit"
                         onClick={ () => this.updateQuery(searchTerm) }
-                        onKeyDown={ (evt) => this.selectAutocompleteSuggestion(evt, searchTerm) }
+                        onKeyDown={ (evt) => this.selectSuggestion(evt, searchTerm) }
                       >{ searchTerm }</button>
                     </li>
                   ))
