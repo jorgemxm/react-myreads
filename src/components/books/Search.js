@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import formSerialize from 'form-serialize';
+import excapeRegExp from 'escape-string-regexp';
 import * as BooksAPI from '../../utils/BooksAPI';
 
 // Import Custom Components
 import BookLayoutGrid from './BookLayoutGrid';
+import NoResults from './SearchNoResults';
 
 // Import Data
 import searchTerms from '../../data/searchTerms';
@@ -27,6 +29,7 @@ export default class Search extends Component {
     currentSearchTerm: '',
     maxResults: 20,
     autocompleteSuggestions: [],
+    statusNoResults: false,
     searchResults: [],
     searchTerms
   }
@@ -77,21 +80,31 @@ export default class Search extends Component {
 
 
   /**
-  * Search Submit
+  * Search Submit / Handle input validation
   * @param {Object} evt - form submit event
   */
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { query } = formSerialize(evt.target, { hash: true });
+    let { query } = formSerialize(evt.target, { hash: true });
 
-    BooksAPI.search(query, this.state.maxResults)
-    .then(response => (
-      this.setState({
-        currentSearchTerm: query,    // Save current Search Term
-        searchResults: response,     // Update Results Items
-        autocompleteSuggestions: []  // Reset Autocomplete
-      })
-    ))
+    // Validate if "query" is not empty
+    query = (query && query.length > 0)
+      ? excapeRegExp(query.trim())
+      : false;
+
+    // If not empty query, fetch search results
+    if (query) {
+      BooksAPI.search(query, this.state.maxResults)
+      .then((response) => {
+        this.updateSearchResults(query, response)
+      });
+    }
+
+    // else the query had nothing but "space" charactes, reset the form
+    else {
+      this.resetSearch();
+    }
+
   }
 
 
@@ -103,6 +116,7 @@ export default class Search extends Component {
       query: '',
       currentSearchTerm: '',
       autocompleteSuggestions: [],
+      statusNoResults: false,
       searchResults: []
     });
 
@@ -111,11 +125,39 @@ export default class Search extends Component {
   }
 
 
+  /**
+  * Update Search Results
+  */
+  updateSearchResults = (query, response) => {
+    console.log(response);
+
+    // Fetch Search was Empty
+    if (response.hasOwnProperty('error')) {
+      this.setState({
+        currentSearchTerm: query,    // Save current Search Term
+        statusNoResults: true,       // Show "NoResults" Message
+        searchResults: []            // Remove previous Results items
+      })
+    }
+
+    // Fetch Search has Results
+    else {
+      this.setState({
+        currentSearchTerm: query,    // Save current Search Term
+        statusNoResults: false,      // Hide "NoResults" Message
+        searchResults: response,     // Update Results Items
+        autocompleteSuggestions: []  // Reset Autocomplete
+      })
+    }
+  }
+
+
   render() {
     const {
       query,
       currentSearchTerm,
       autocompleteSuggestions,
+      statusNoResults,
       searchResults
     } = this.state;
 
@@ -180,7 +222,12 @@ export default class Search extends Component {
         </form>
 
         <div className="search-books-results">
+
           { showCurrentSearch }
+
+          { statusNoResults && (
+            <NoResults />
+          )}
 
           <ol className="books-grid">
             { (searchResults.length > 0) && (

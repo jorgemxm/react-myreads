@@ -204,6 +204,38 @@ body,
   padding: 80px 10px 20px;
 }
 
+.no-results {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.no-results h2 {
+  color: #e2e2e2;
+  font-weight: 100;
+}
+
+.no-results a {
+  color: #9DA5B4;
+  text-decoration: underline;
+}
+
+.no-results a:hover {
+  color: #e2e2d2;
+}
+
+.no-results hr {
+  background: #525863;
+  border: 0;
+  height: 1px;
+  width: 100%;
+}
+
+.no-results-disclaimer p {
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
 
 /*------------------------------------*
 * books grid
