@@ -179,14 +179,12 @@ export default class Search extends Component {
           { showCurrentSearch }
 
           <ol className="books-grid">
-            {
-              (searchResults.length > 0) && (
-                <BookLayoutGrid
-                  { ...this.props }
-                  books={ searchResults }
-                />
-              )
-            }
+            { (searchResults.length > 0) && (
+              <BookLayoutGrid
+                { ...this.props }
+                books={ searchResults }
+              />
+            )}
           </ol>
         </div>
       </div>
