@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import formSerialize from 'form-serialize';
 import * as BooksAPI from '../../utils/BooksAPI';
@@ -16,7 +17,10 @@ import searchTerms from '../../data/searchTerms';
 //-----------------------------------
 export default class Search extends Component {
 
-  static propTypes = {}
+  static propTypes = {
+    shelvesAvailable: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onUpdateBookShelf: PropTypes.func.isRequired
+  }
 
   state = {
     query: '',

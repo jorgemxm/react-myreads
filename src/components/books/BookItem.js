@@ -64,8 +64,13 @@ function BookItem(props) {
 }
 
 BookItem.propTypes = {
-  book: PropTypes.object.isRequired,
-  shelvesOptions: PropTypes.array.isRequired,
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string),
+    imageLinks: PropTypes.object,
+    shelf: PropTypes.string
+  }).isRequired,
+  shelvesOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
   onUpdateBookShelf: PropTypes.func.isRequired
 };
 
