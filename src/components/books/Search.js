@@ -215,10 +215,9 @@ export default class Search extends Component {
                         onKeyDown={ (evt) => this.selectSuggestion(evt, searchTerm) }
                       >{ searchTerm }</button>
                     </li>
-                  ))
-                  }
+                  )) }
                 </ul>
-              )}
+              ) }
             </div>
           </div>
         </form>
