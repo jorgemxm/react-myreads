@@ -1,7 +1,7 @@
 import React from 'react';
 import BookItem from './BookItem';
 import PropTypes from 'prop-types';
-import { camelCaseToTitleCase } from '../../utils/utils';
+import { camelCaseToTitleCase } from '../../utils/helpers';
 
 function BookGrid(props) {
 

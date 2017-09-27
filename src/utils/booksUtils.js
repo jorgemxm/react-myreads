@@ -1,4 +1,4 @@
-import { camelCaseToTitleCase } from './utils';
+import { camelCaseToTitleCase } from './helpers';
 
 /**
 * It Maps the books response from the API using a custom data structure

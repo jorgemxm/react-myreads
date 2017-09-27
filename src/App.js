@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import * as booksUtils from './utils/booksUtils';
-import * as utils from './utils/utils';
+import { camelCaseToTitleCase } from './utils/helpers';
 import './assets/css/App.css';
 
 // Import Custom Components
@@ -62,7 +62,7 @@ class BooksApp extends Component {
         <BookShelf
           key={ shelf }
           shelvesAvailable={ shelvesAvailable }
-          shelfTitle={ utils.camelCaseToTitleCase(shelf) }
+          shelfTitle={ camelCaseToTitleCase(shelf) }
           onUpdateBookShelf={ this.onUpdateBookShelf }
           { ...shelves[shelf] }
         />
