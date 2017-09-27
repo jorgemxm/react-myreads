@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as BooksAPI from './utils/BooksAPI';
 import * as booksUtils from './utils/booksUtils';
@@ -17,9 +18,13 @@ let currentBook = {};
 let allBooks = {};
 let initialResponse = {};
 
-xit('renders without crashing', () => {
+it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>, div
+  );
 });
 
 
