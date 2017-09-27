@@ -40,21 +40,9 @@ export default class Search extends Component {
   * Update the value of the Search input field
   */
   updateQuery = (query) => {
+    // NOTE: don't trim() the string here, else the user won't be able to add spaces between words, eg: "virtual reallity"
     this.setState({ query });
     this.handleAutocomplete(query, this.state.searchTerms);
-  }
-
-
-  /**
-  *
-  */
-  selectSuggestion = (evt, query) => {
-    const keyCode = evt.keyCode || evt.which;
-
-    // If Key-Pressed is 'Enter' Key
-    if (keyCode === 13) {
-      this.updateQuery(query);
-    }
   }
 
 
@@ -75,7 +63,7 @@ export default class Search extends Component {
       ));
     }
 
-    // Update Autocomplete
+    // Return the list of terms that match the current user-query
     this.setState({ autocompleteSuggestions });
 
   }
@@ -122,7 +110,7 @@ export default class Search extends Component {
       searchResults: []
     });
 
-    // Moves the Focus to the InputField after reseting the Form
+    // Accessibility: It Moves the Focus to the InputField after reseting the Form
     this.inputSearch.focus();
   }
 
@@ -131,9 +119,8 @@ export default class Search extends Component {
   * Update Search Results
   */
   updateSearchResults = (query, response) => {
-    console.log(response);
 
-    // Fetch Search was Empty
+    // Fetch Response was Empty
     if (response.hasOwnProperty('error')) {
       this.setState({
         currentSearchTerm: query,    // Save current Search Term
@@ -142,7 +129,7 @@ export default class Search extends Component {
       })
     }
 
-    // Fetch Search has Results
+    // Fetch Response has Results
     else {
       this.setState({
         currentSearchTerm: query,    // Save current Search Term
@@ -163,7 +150,7 @@ export default class Search extends Component {
       searchResults
     } = this.state;
 
-    // It shows a Message with the current search / option to clear the search
+    // It shows a Message with the current search / option to clear the current search
     const showCurrentSearch = (currentSearchTerm)
       ? (
         <div className="search-results-clear">
@@ -179,6 +166,7 @@ export default class Search extends Component {
           <div className="search-books-bar">
             <Link to="/" className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
+
               {/*
                 NOTE: The search from BooksAPI is limited to a particular set of search terms.
                 You can find these search terms here:
@@ -186,14 +174,13 @@ export default class Search extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-
               <input
                 name="query"
                 type="text"
                 placeholder="Search by title or author"
                 value={ query }
                 onChange={ (evt) => this.updateQuery(evt.target.value) }
-                autoFocus // Focus this field once the component is mounted
+                autoFocus // Accessibility: Focus this field once the component is mounted
 
                 // NOTE: Refs - https://facebook.github.io/react/docs/refs-and-the-dom.html#adding-a-ref-to-a-dom-element
                 ref={ (input) => { this.inputSearch = input } }
@@ -210,9 +197,7 @@ export default class Search extends Component {
                     >
                       <button
                         className="search-books-autocomplete-link-item"
-                        type="submit"
                         onClick={ () => this.updateQuery(searchTerm) }
-                        onKeyDown={ (evt) => this.selectSuggestion(evt, searchTerm) }
                       >{ searchTerm }</button>
                     </li>
                   )) }
@@ -226,9 +211,7 @@ export default class Search extends Component {
 
           { showCurrentSearch }
 
-          { statusNoResults && (
-            <NoResults />
-          )}
+          { statusNoResults && ( <NoResults /> ) }
 
           <ol className="books-grid">
             { (searchResults.length > 0) && (
