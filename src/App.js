@@ -27,7 +27,6 @@ class BooksApp extends Component {
 
 
   loadData() {
-
     BooksAPI.getAll()
     .then(books => {
       this.setState({

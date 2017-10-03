@@ -53,14 +53,35 @@ export default class Search extends Component {
 
     let autocompleteSuggestions = [];
     let { minCharsShowAutocomplete } = this.state;
+    let regExp = null;
+    let characters = [];
+    let queryMatch = [];
 
     // Show Autocomplete only if the current searchTerm has more than x amount of Characters
     if (query.length >= minCharsShowAutocomplete) {
 
       // Filter Autocomplete Suggestions
-      autocompleteSuggestions = searchTerms.filter(term => (
-        (term.toLowerCase().indexOf(query.toLowerCase()) >= 0)
-      ));
+      autocompleteSuggestions = searchTerms.reduce((last, term) => {
+
+        // If the query matches with the current term (not-case-sensitive)
+        if (term.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+
+          // It adds an HTML tag around the string that matches with the term.
+          // eg: <strong>Dig</strong>ital
+          regExp = new RegExp(`(${ query })`, 'ig');
+          characters = term.split(regExp);
+          queryMatch = characters.map((chars, index) => {
+            return (chars.toLowerCase() === query.toLowerCase())
+              ? <strong key={index}>{ chars }</strong>
+              : chars
+          });
+          last.push({ term, queryMatch });
+        }
+
+        //
+        return last;
+
+      }, []);
     }
 
     // Return the list of terms that match the current user-query
@@ -192,13 +213,13 @@ export default class Search extends Component {
                 <ul className='search-books-autocomplete'>
                   { autocompleteSuggestions.map(searchTerm => (
                     <li
-                      key={ searchTerm }
+                      key={ searchTerm.term }
                       className='search-books-autocomplete-item'
                     >
                       <button
                         className="search-books-autocomplete-link-item"
-                        onClick={ () => this.updateQuery(searchTerm) }
-                      >{ searchTerm }</button>
+                        onClick={ () => this.updateQuery(searchTerm.term) }
+                      >{ searchTerm.queryMatch }</button>
                     </li>
                   )) }
                 </ul>
