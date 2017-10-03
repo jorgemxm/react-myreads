@@ -42,7 +42,7 @@ beforeEach(() => {
       books: [
         { id: 1, title: 'React' },
         { id: 2, title: 'Games' },
-        { id: 3, title: 'Design' },
+        { id: 3, title: 'Design' }
       ]
     },
     currentlyReading: { books: [] },
