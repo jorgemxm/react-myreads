@@ -114,7 +114,7 @@ it('removes a book from all the shelves', () => {
   };
 
   const result = booksUtils.removeFromShelf(currentBook, allBooks);
-  expect(expected).toEqual(expected);
+  expect(result).toEqual(expected);
 
 });
 
