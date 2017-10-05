@@ -132,11 +132,3 @@ it('searchs if a book is assigned to any shelf', () => {
   expect(result).toEqual('read');
 
 });
-
-/*
-it('creates a list of the active book shelves', () => {
-  const expected = [ 'currentlyReading', 'read', 'wantToRead' ];
-  const result = booksUtils.getListOfActiveShelves(initialResponse.books);
-  expect(result).toEqual(expected);
-});
-*/
