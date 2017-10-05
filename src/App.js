@@ -33,7 +33,6 @@ class BooksApp extends Component {
         shelves: booksUtils.mapBooksToShelves(books)
       });
     });
-
   }
 
 
@@ -43,14 +42,19 @@ class BooksApp extends Component {
   * @param {String} newShelf
   */
   onUpdateBookShelf = (book, newShelf) => {
+    const updatedShelves = (newShelf === 'none')
+      ? booksUtils.removeFromShelf(book, this.state.shelves)
+      : booksUtils.moveToShelf(book, newShelf, this.state.shelves);
+
     BooksAPI.update(book, newShelf)
     .then(response => {
-      this.setState((state) => {
-        return (newShelf === 'none')
-          ? { shelves: booksUtils.removeFromShelf(book, this.state.shelves) }
-          : { shelves: booksUtils.moveToShelf(book, newShelf, this.state.shelves) }
-      });
+      this.setState(state => ({ shelves: updatedShelves }));
     });
+  }
+
+
+  findBookShelf = (bookId) => {
+    return booksUtils.findBookShelf(bookId, this.state.shelves);
   }
 
 
@@ -93,6 +97,7 @@ class BooksApp extends Component {
           <Search
             shelvesAvailable={ shelvesAvailable }
             onUpdateBookShelf={ this.onUpdateBookShelf }
+            findBookShelf={ this.findBookShelf }
           />
         ) } />
 

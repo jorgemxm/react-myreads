@@ -124,6 +124,15 @@ it('removes a book from all the shelves', () => {
 });
 
 
+
+it('searchs if a book is assigned to any shelf', () => {
+  const testBook = { shelf: 'read', title: 'Games', id: 3 };
+
+  const result = booksUtils.findBookShelf(testBook.id, testShelves);
+  expect(result).toEqual('read');
+
+});
+
 /*
 it('creates a list of the active book shelves', () => {
   const expected = [ 'currentlyReading', 'read', 'wantToRead' ];

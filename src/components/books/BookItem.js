@@ -10,10 +10,16 @@ function BookItem(props) {
   const {
     book,
     shelvesOptions,
-    onUpdateBookShelf
+    onUpdateBookShelf,
+    findBookShelf
   } = props;
 
-  const currentShelf = book.hasOwnProperty('shelf') ? book.shelf : 'none';
+  // Set the current BookShelf
+  book.shelf = book.hasOwnProperty('shelf')
+    ? book.shelf
+    // Else, the book is being rendered from the Search Page and it doesn't have the 'shelf' property
+    : findBookShelf(book.id);
+
 
   // It creates a List of Authors for the current Book
   // NOTE: There are books without authors. eg: Search for "Painting" or "Baseball"
@@ -45,7 +51,7 @@ function BookItem(props) {
 
           <div className="book-shelf-changer">
             <select
-              defaultValue={ currentShelf }
+              defaultValue={ book.shelf }
               onChange={ (evt) => { onUpdateBookShelf(book, evt.target.value) } }
             >
               <option value="none" disabled>Move to...</option>
@@ -70,6 +76,7 @@ BookItem.propTypes = {
     imageLinks: PropTypes.object,
     shelf: PropTypes.string
   }).isRequired,
+  findBookShelf: PropTypes.func,
   shelvesOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
   onUpdateBookShelf: PropTypes.func.isRequired
 };

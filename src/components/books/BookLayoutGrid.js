@@ -8,7 +8,8 @@ function BookGrid(props) {
   const {
     books,
     shelvesAvailable,
-    onUpdateBookShelf
+    onUpdateBookShelf,
+    findBookShelf
   } = props;
 
   const shelvesOptions = shelvesAvailable.map(shelf => (
@@ -22,6 +23,7 @@ function BookGrid(props) {
           key={ book.id }
           shelvesOptions={ shelvesOptions }
           onUpdateBookShelf={ onUpdateBookShelf }
+          findBookShelf={ findBookShelf }
           book={{...book }}
         />
       ))}
@@ -31,6 +33,7 @@ function BookGrid(props) {
 
 BookGrid.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object),
+  findBookShelf: PropTypes.func,
   shelvesAvailable: PropTypes.arrayOf(PropTypes.string).isRequired,
   onUpdateBookShelf: PropTypes.func.isRequired
 };

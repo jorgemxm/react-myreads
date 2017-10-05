@@ -81,6 +81,26 @@ export function removeFromShelf(book, allBooks) {
 
 
 /**
+* Find a book by its id in all the book shelves,
+* if found, return the name of the current Shelf
+* @param {Object} book
+* @param {Array} allBooks
+* ---
+* @return {String} - Current Book Shelf
+*/
+export function findBookShelf(bookId, allBooks) {
+  const foundBook = Object.keys(allBooks).reduce((last, shelf) => {
+    const found = ((allBooks[shelf].books.find(_book => _book.id === bookId)));
+
+    if (found) { last = found.shelf; }
+    return last;
+  }, '');
+
+  return (foundBook) ? foundBook : 'none';
+}
+
+
+/**
 * It Creates a List with all the active Shelves that the current user has
 * @param {Array} apiBooksResponse
 * ---

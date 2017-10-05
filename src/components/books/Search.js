@@ -20,6 +20,7 @@ import searchTerms from '../../data/searchTerms';
 export default class Search extends Component {
 
   static propTypes = {
+    findBookShelf: PropTypes.func,
     shelvesAvailable: PropTypes.arrayOf(PropTypes.string).isRequired,
     onUpdateBookShelf: PropTypes.func.isRequired
   }
@@ -73,7 +74,7 @@ export default class Search extends Component {
           queryMatch = characters.map((chars, index) => {
             return (chars.toLowerCase() === query.toLowerCase())
               ? <strong key={index}>{ chars }</strong>
-              : chars
+              : chars;
           });
           last.push({ term, queryMatch });
         }
