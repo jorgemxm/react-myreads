@@ -34,11 +34,11 @@ export function moveToShelf(book, newShelf, allBooks) {
   const newBooks = { ...allBooks };
 
   // Validate if the Current Book has a Shelf assigned or Not
-  const bookIndex = (book.hasOwnProperty('shelf'))
+  const bookIndex = (book.shelf && book.shelf !== 'none')
     ? newBooks[book.shelf].books.findIndex(_book => _book.id === book.id)
-    : false;
+    : -1;
 
-  // Validate If the name of the "newShelf" provided was empty (It didn't have any books) on page load
+  // Validate If the name of the "newShelf" provided was empty (If it didn't have any books on page load)
   newBooks[newShelf] = newBooks[newShelf] || { shelfTitle: camelCaseToTitleCase(newShelf) };
   newBooks[newShelf].books = newBooks[newShelf].books || [];
 
@@ -49,7 +49,7 @@ export function moveToShelf(book, newShelf, allBooks) {
   });
 
   // If the book was found in the Active Shelves, Remove it from its previous shelf
-  if (bookIndex) {
+  if (bookIndex >= 0) {
     newBooks[book.shelf].books = [
       ...newBooks[book.shelf].books.slice(0, bookIndex),
       ...newBooks[book.shelf].books.slice(bookIndex + 1)
