@@ -14,8 +14,8 @@ import * as booksUtils from './utils/booksUtils';
 // fit() - exclude other tests
 //-----------------------------------
 
-let currentBook = {};
-let allBooks = {};
+let testBook = {};
+let testShelves = {};
 let initialResponse = {};
 
 it('renders without crashing', () => {
@@ -31,22 +31,24 @@ it('renders without crashing', () => {
 beforeEach(() => {
   initialResponse = {
     books: [
-      { id: 1, 'shelf': 'currentlyReading', title: 'React' },
-      { id: 2, 'shelf': 'wantToRead', title: 'Design' },
-      { id: 3, 'shelf': 'read', title: 'Games' }
+      { id: 1, shelf: 'currentlyReading', title: 'React' },
+      { id: 2, shelf: 'wantToRead', title: 'Design' },
+      { id: 3, shelf: 'read', title: 'Games' }
     ]
   };
-  currentBook = { shelf: 'read', title: 'Games', id: 2 };
-  allBooks = {
-    read: {
-      books: [
-        { id: 1, title: 'React' },
-        { id: 2, title: 'Games' },
-        { id: 3, title: 'Design' }
-      ]
+
+  testBook = { shelf: 'read', title: 'Games', id: 3 };
+
+  testShelves = {
+    currentlyReading: {
+      books: [ { id: 1, title: 'React', shelf: 'currentlyReading' } ]
     },
-    currentlyReading: { books: [] },
-    wantToRead: { books: [] }
+    wantToRead: {
+      books: [ { id: 2, title: 'Design', shelf: 'wantToRead' } ]
+    },
+    read: {
+      books: [ { id: 3, title: 'Games', shelf: 'read' } ]
+    },
   }
 });
 
@@ -55,15 +57,15 @@ it('maps the API response to a custom data structure', () => {
   const expected = {
     currentlyReading: {
       shelfTitle: 'Currently Reading',
-      books: [{ id: 1, 'shelf': 'currentlyReading', title: 'React' }]
+      books: [{ id: 1, shelf: 'currentlyReading', title: 'React' }]
     },
     wantToRead: {
       shelfTitle: 'Want To Read',
-      books: [{ id: 2, 'shelf': 'wantToRead', title: 'Design' }]
+      books: [{ id: 2, shelf: 'wantToRead', title: 'Design' }]
     },
     read: {
       shelfTitle: 'Read',
-      books: [{ id: 3, 'shelf': 'read', title: 'Games' }]
+      books: [{ id: 3, shelf: 'read', title: 'Games' }]
     }
   }
 
@@ -76,19 +78,21 @@ it('maps the API response to a custom data structure', () => {
 
 it('moves a book to another shelf', () => {
   const expected = {
-    read: {
+    currentlyReading: {
       books: [
-        { id: 1, title: 'React' },
-        { id: 3, title: 'Design' }
+        { id: 1, title: 'React', shelf: 'currentlyReading' },
+        { id: 3, title: 'Games', shelf: 'currentlyReading' }
       ]
     },
-    currentlyReading: {
-      books: [ { id: 2, title: 'Games', shelf: 'currentlyReading' } ]
+    wantToRead: {
+      books: [ { id: 2, title: 'Design', shelf: 'wantToRead' } ]
     },
-    wantToRead: { books: [] }
+    read: {
+      books: []
+    }
   };
 
-  const result = booksUtils.moveToShelf(currentBook, 'currentlyReading', allBooks);
+  const result = booksUtils.moveToShelf(testBook, 'currentlyReading', testShelves);
   expect(result).toEqual(expected);
 
 });
@@ -96,24 +100,25 @@ it('moves a book to another shelf', () => {
 
 
 test('moveToShelf should not mutate the existing books array', () => {
-  const result = booksUtils.moveToShelf(currentBook, 'read', allBooks);
-  expect(result).not.toBe(allBooks);
+  const result = booksUtils.moveToShelf(testBook, 'read', testShelves);
+  expect(result).not.toBe(testShelves);
 })
 
 
 it('removes a book from all the shelves', () => {
   const expected = {
-    read: {
-      books: [
-        { id: 1, title: 'React' },
-        { id: 3, title: 'Design' }
-      ]
+    currentlyReading: {
+      books: [ { id: 1, title: 'React', shelf: 'currentlyReading' } ]
     },
-    currentlyReading: { books: [] },
-    wantToRead: { books: [] }
+    wantToRead: {
+      books: [ { id: 2, title: 'Design', shelf: 'wantToRead' } ]
+    },
+    read: {
+      books: []
+    }
   };
 
-  const result = booksUtils.removeFromShelf(currentBook, allBooks);
+  const result = booksUtils.removeFromShelf(testBook, testShelves);
   expect(result).toEqual(expected);
 
 });
